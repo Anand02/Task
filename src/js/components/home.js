@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Container, Row, Col } from "react-bootstrap";
 import LazyLoad from "react-lazy-load";
-import { isMobile } from "react-device-detect";
 import {getMovies,updateSearchKey,filterMovies,asyncFilterMovies} from "../actions/index";
+import Spinner from '../Spinner';
 
 class App extends Component {
   constructor(props) {
@@ -85,7 +85,7 @@ class App extends Component {
         );
       })
     ) : (
-      <div>Loading...</div>
+        <Spinner />
     );
   }
 
@@ -118,16 +118,9 @@ class App extends Component {
             maxHeight: "190px"
           }}
         >
-          <input
-            type="image"
-            src="./assets/Back.png"
-            alt="back"
-            width="28"
-            height="28"
-            style={{ display: "inline", float: "left", paddingTop: "0px" }}
-          />
           <span>
-            Search : <input
+            {/* <p style={{ color: 'white' }}>Search :  */}
+              <input
               type="text"
               placeholder="Enter Name To Search"
               onChange={e => this.handleSearch(e)}
@@ -143,12 +136,27 @@ class App extends Component {
                 outline: "none",
                
               }}
+             
             />
            {/* <button> Search </button> */}
+           {/* </p> */}
           </span>
-          <input
-            type="image"
+          <button  style={{
+              display: "inline",
+              float: "right",
+              paddingTop: "0px",
+              paddingRight: "20px",
+              position: 'absolute',
+              margin: "-6px",
+              right:" 38px",
+              bottom: "4px",
+            }} onClick={e => this.handleSearch(e)}>
+           Search
+        </button>
+          {/* <input
+            type="button"
             src="./assets/search.png"
+            // value="Search"
             alt="search"
             width="48"
             height="28"
@@ -157,9 +165,13 @@ class App extends Component {
               display: "inline",
               float: "right",
               paddingTop: "0px",
-              paddingRight: "20px"
+              paddingRight: "20px",
+              position: 'absolute',
+              margin: "-6px",
+              right:" 38px",
+              bottom: "4px",
             }}
-          />
+          /> */}
         </div>
       </div>
     );
@@ -183,59 +195,19 @@ class App extends Component {
   render() {
     const renderMovies = this.showPosts();
     const renderHead = this.showHead();
-    return isMobile ? (
-      <div className="">
+    return(
+      <div className="" style={{ backgroundColor: '#000000'}}>
         <div>{renderHead}</div>
-        <Container>
-          <div>
-            <Row>{renderMovies}</Row>
-          </div>
-        </Container>
+        {renderMovies
+        ?  <Container>
+            <div>
+                <Row>{renderMovies}</Row>
+            </div>
+            </Container>
+        :  <Spinner/>
+        }
       </div>
-    ) : (
-      <div>
-        <p
-          style={{
-            color: "#ffffff",
-            fontSize: "25px",
-            paddingTop: "30px",
-            right: "50%"
-          }}
-        >
-          React JS/ Workshop/ Diagnal technologies
-        </p>
-        <div
-          style={{
-            padding: 0,
-            margin: 0,
-            marginTop: "30px",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            height: "500px",
-            backgroundImage: "url(./assets/mobileOnly.jpg)",
-            color: "#ffffff",
-            fontSize: "25px",
-            position: "relative"
-          }}
-        >
-          <p
-            style={{
-              position: "absolute",
-              bottom: "80px",
-              left: "20px",
-              backgroundColor: "#191a21",
-              color: "#ffffff",
-              paddingLeft: "20px",
-              paddingRight: "20px",
-              width: "300px"
-            }}
-          >
-            This is Mobile only version, please view the page in mobile or use
-            browser devtools to toggle device view and then refresh the page.
-          </p>
-        </div>
-      </div>
-    );
+    )
   }
 }
 

@@ -11,12 +11,13 @@
     "bootstrap": "^4.5.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
-    "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-lazy-load": "^3.0.13",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
-    "redux-thunk": "^2.3.0"
+    "react-spinners": "^0.9.0",
+    "redux-thunk": "^2.3.0",
+    "tailwindcss": "^1.4.6"
   },
   "scripts": {
     "predeploy": "npm run build",
